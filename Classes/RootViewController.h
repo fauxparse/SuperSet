@@ -15,7 +15,6 @@
   IBOutlet UITableView *tableView;
   
 @private
-  SetList *newSetList_;
   NSFetchedResultsController *fetchedResultsController_;
   NSManagedObjectContext *managedObjectContext_;
 }

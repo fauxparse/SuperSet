@@ -1,5 +1,5 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to SetList.h instead.
+// Make changes to Item.h instead.
 
 #import <CoreData/CoreData.h>
 
@@ -9,14 +9,14 @@
 
 
 
-@interface SetListID : NSManagedObjectID {}
+@interface ItemID : NSManagedObjectID {}
 @end
 
-@interface _SetList : NSManagedObject {}
+@interface _Item : NSManagedObject {}
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_;
 + (NSString*)entityName;
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_;
-- (SetListID*)objectID;
+- (ItemID*)objectID;
 
 
 
@@ -26,9 +26,9 @@
 
 
 
-@property (nonatomic, retain) NSDate *date;
+@property (nonatomic, retain) NSString *genre;
 
-//- (BOOL)validateDate:(id*)value_ error:(NSError**)error_;
+//- (BOOL)validateGenre:(id*)value_ error:(NSError**)error_;
 
 
 
@@ -40,7 +40,7 @@
 
 @end
 
-@interface _SetList (CoreDataGeneratedAccessors)
+@interface _Item (CoreDataGeneratedAccessors)
 
 - (void)addSetListItems:(NSSet*)value_;
 - (void)removeSetListItems:(NSSet*)value_;
@@ -49,14 +49,14 @@
 
 @end
 
-@interface _SetList (CoreDataGeneratedPrimitiveAccessors)
+@interface _Item (CoreDataGeneratedPrimitiveAccessors)
 
 - (NSString*)primitiveTitle;
 - (void)setPrimitiveTitle:(NSString*)value;
 
 
-- (NSDate*)primitiveDate;
-- (void)setPrimitiveDate:(NSDate*)value;
+- (NSString*)primitiveGenre;
+- (void)setPrimitiveGenre:(NSString*)value;
 
 
 

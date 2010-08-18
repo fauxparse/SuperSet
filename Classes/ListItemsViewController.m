@@ -7,13 +7,14 @@
 //
 
 #import "ListItemsViewController.h"
-#import "AddItemsViewController.h"
+#import "LibraryViewController.h"
 #import "ListDetailsViewController.h"
 
 @implementation ListItemsViewController
 
 @synthesize tableView;
 @synthesize setList;
+@synthesize managedObjectContext=managedObjectContext_;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -25,10 +26,16 @@
 }
 
 - (IBAction) addItems {
-  AddItemsViewController *addItemsController = [[AddItemsViewController alloc] initWithNibName:@"AddItemsViewController" bundle:nil];
-
-  [self.navigationController pushViewController:addItemsController animated:YES];
-  [addItemsController release];
+  LibraryViewController *libraryController = [[LibraryViewController alloc] initWithNibName:@"LibraryViewController" bundle:nil];
+  libraryController.delegate = self;
+  libraryController.setList = setList;
+  libraryController.managedObjectContext = self.managedObjectContext;
+  
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:libraryController];
+  navigationController.navigationBar.barStyle = UIBarStyleBlack;
+  [self presentModalViewController:navigationController animated:YES];
+  [navigationController release];
+  [libraryController release];
 }
 
 - (IBAction) showDetails {
@@ -40,6 +47,12 @@
   [self presentModalViewController:navigationController animated:YES];
   [navigationController release];
   [detailsController release];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+  // Return YES for supported orientations.
+  return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark -
@@ -116,6 +129,10 @@
   }
 }
 
+- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(NSArray *)itemsToAdd {
+  [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark Memory management
 
@@ -134,6 +151,7 @@
 - (void)dealloc {
   [tableView release];
   [setList release];
+  [managedObjectContext_ release];
   [super dealloc];
 }
 

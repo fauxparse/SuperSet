@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SetList.h"
 #import "ListDetailsViewController.h"
+#import "LibraryViewController.h"
 
-@interface ListItemsViewController : UIViewController <ListDetailsDelegate> {
+@interface ListItemsViewController : UIViewController <ListDetailsDelegate, LibraryViewDelegate> {
   IBOutlet UITableView *tableView;
 
 @private
   SetList *setList;
+  NSManagedObjectContext *managedObjectContext_;
 }
 
 - (IBAction) addItems;
@@ -22,5 +24,6 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) SetList *setList;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end

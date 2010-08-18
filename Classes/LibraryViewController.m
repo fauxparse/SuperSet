@@ -1,59 +1,33 @@
 //
-//  RootViewController.m
+//  LibraryViewController.m
 //  ListN
 //
 //  Created by Matt Powell on 18/08/10.
-//  Copyright Matt Powell 2010. All rights reserved.
+//  Copyright 2010 Matt Powell. All rights reserved.
 //
 
-#import "RootViewController.h"
-#import "ListItemsViewController.h"
+#import "LibraryViewController.h"
+#import "Item.h"
 
-@interface RootViewController ()
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-@end
+@implementation LibraryViewController
 
-@implementation RootViewController
-
-@synthesize tableView;
+@synthesize setList;
+@synthesize delegate;
 @synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_;
 
 #pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
+  self.navigationItem.title = @"Library";
+  
+  UIBarButtonItem *addButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem)];
+  self.navigationItem.leftBarButtonItem = addButtonItem;
+  [addButtonItem release];
 
-  // Set up the edit and add buttons.
-  self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-
-// Implement viewWillAppear: to do additional setup before the view is presented.
-- (void)viewWillAppear:(BOOL)animated {
-  [super viewWillAppear:animated];
-}
-
-/*
-- (void)viewDidAppear:(BOOL)animated {
-  [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-  [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-  [super viewDidDisappear:animated];
-}
-*/
-
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  // Return YES for supported orientations.
-  return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+  UIBarButtonItem *doneButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closeLibrary)];
+  self.navigationItem.rightBarButtonItem = doneButtonItem;
+  [doneButtonItem release];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
@@ -69,24 +43,12 @@
   cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
-#pragma mark -
-#pragma mark Add a new object
-
-- (IBAction) add {
-  ListDetailsViewController *detailsController = [[ListDetailsViewController alloc] initWithNibName:@"ListDetailsViewController" bundle:nil];
-  detailsController.delegate = self;
-  detailsController.managedObjectContext = self.managedObjectContext;
-
-  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsController];
-  navigationController.navigationBar.barStyle = UIBarStyleBlack;
-  [self presentModalViewController:navigationController animated:YES];
-  [navigationController release];
-  [detailsController release];
+- (IBAction) addNewItem {
 }
 
-- (void)listDetailsViewController:(ListDetailsViewController *)listDetailsViewController didEditSetList:(SetList *)setList {
-  [self dismissModalViewControllerAnimated:YES];
-  [self.tableView reloadData];
+- (IBAction) closeLibrary {
+  NSArray *itemsToAdd = [[NSMutableArray alloc] initWithObjects:nil];
+  [self.delegate libraryViewController:self addedItems:itemsToAdd];
 }
 
 #pragma mark -
@@ -103,16 +65,15 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Cell";
-    
+  static NSString *CellIdentifier = @"Item";
+  
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
-    
-  // Configure the cell.
+  
   [self configureCell:cell atIndexPath:indexPath];
-    
+  
   return cell;
 }
 
@@ -125,7 +86,7 @@
     // Delete the managed object for the given index path
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
+    
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
@@ -141,27 +102,21 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-  // The table view should not be re-orderable.
-  return NO;
+    return NO;
 }
 
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)setEditing:(BOOL)editing animated:(BOOL)animate {
-  [super setEditing:editing animated:animate];
-  [tableView setEditing:editing animated:animate];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  ListItemsViewController *detailViewController = [[ListItemsViewController alloc] initWithNibName:@"ListItemsViewController" bundle:nil];
-  SetList *selectedObject = (SetList *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-
-  detailViewController.setList = selectedObject;
-  detailViewController.managedObjectContext = self.managedObjectContext;
-  
-  [self.navigationController pushViewController:detailViewController animated:YES];
-  [detailViewController release];
+    // Navigation logic may go here. Create and push another view controller.
+	/*
+	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+	 [self.navigationController pushViewController:detailViewController animated:YES];
+	 [detailViewController release];
+	 */
 }
 
 #pragma mark -
@@ -171,21 +126,21 @@
   if (fetchedResultsController_ != nil) {
     return fetchedResultsController_;
   }
-    
+  
   /*
    Set up the fetched results controller.
-  */
+   */
   // Create the fetch request for the entity.
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   // Edit the entity name as appropriate.
-  NSEntityDescription *entity = [NSEntityDescription entityForName:@"SetList" inManagedObjectContext:self.managedObjectContext];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:self.managedObjectContext];
   [fetchRequest setEntity:entity];
   
   // Set the batch size to a suitable number.
   [fetchRequest setFetchBatchSize:20];
   
   // Edit the sort key as appropriate.
-  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+  NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
   NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
   
   [fetchRequest setSortDescriptors:sortDescriptors];
@@ -224,12 +179,12 @@
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
+  
   switch(type) {
     case NSFetchedResultsChangeInsert:
       [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
       break;
-            
+      
     case NSFetchedResultsChangeDelete:
       [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
       break;
@@ -240,26 +195,26 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
   UITableView *tableView = self.tableView;
-    
+  
   switch(type) {
-            
+      
     case NSFetchedResultsChangeInsert:
       [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
       break;
-            
+      
     case NSFetchedResultsChangeDelete:
       [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       break;
-            
+      
     case NSFetchedResultsChangeUpdate:
       [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
       break;
-            
+      
     case NSFetchedResultsChangeMove:
       [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
       [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
       break;
-    }
+  }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
@@ -267,30 +222,31 @@
 }
 
 /*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+ // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
+ 
+ - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
  // In the simplest, most efficient, case, reload the table view.
-  [self.tableView reloadData];
-}
-*/
+ [self.tableView reloadData];
+ }
+ */
 
 #pragma mark -
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-  // Releases the view if it doesn't have a superview.
-  [super didReceiveMemoryWarning];
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
     
-  // Relinquish ownership any cached data, images, etc that aren't in use.
+    // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-  // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-  // For example: self.myOutlet = nil;
+    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
+    // For example: self.myOutlet = nil;
 }
 
 - (void)dealloc {
+  [setList release];
   [tableView release];
   [fetchedResultsController_ release];
   [managedObjectContext_ release];
@@ -298,3 +254,4 @@
 }
 
 @end
+

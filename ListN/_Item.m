@@ -1,29 +1,29 @@
 // DO NOT EDIT. This file is machine-generated and constantly overwritten.
-// Make changes to SetList.m instead.
+// Make changes to Item.m instead.
 
-#import "_SetList.h"
+#import "_Item.h"
 
-@implementation SetListID
+@implementation ItemID
 @end
 
-@implementation _SetList
+@implementation _Item
 
 + (id)insertInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription insertNewObjectForEntityForName:@"SetList" inManagedObjectContext:moc_];
+	return [NSEntityDescription insertNewObjectForEntityForName:@"Item" inManagedObjectContext:moc_];
 }
 
 + (NSString*)entityName {
-	return @"SetList";
+	return @"Item";
 }
 
 + (NSEntityDescription*)entityInManagedObjectContext:(NSManagedObjectContext*)moc_ {
 	NSParameterAssert(moc_);
-	return [NSEntityDescription entityForName:@"SetList" inManagedObjectContext:moc_];
+	return [NSEntityDescription entityForName:@"Item" inManagedObjectContext:moc_];
 }
 
-- (SetListID*)objectID {
-	return (SetListID*)[super objectID];
+- (ItemID*)objectID {
+	return (ItemID*)[super objectID];
 }
 
 
@@ -36,7 +36,7 @@
 
 
 
-@dynamic date;
+@dynamic genre;
 
 
 
