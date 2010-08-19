@@ -1,5 +1,7 @@
 #import "_SetListItem.h"
 
 @interface SetListItem : _SetListItem {}
-// Custom logic goes here.
+
+-(void)updatePosition:(NSUInteger)pos;
+
 @end

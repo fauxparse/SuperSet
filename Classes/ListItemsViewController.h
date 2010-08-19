@@ -17,7 +17,6 @@
 
 @private
   SetList *setList;
-  NSArray *setListItems_;
   NSManagedObjectContext *managedObjectContext_;
 }
 
@@ -26,7 +25,6 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) SetList *setList;
-@property (nonatomic, retain) NSArray *setListItems_;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end

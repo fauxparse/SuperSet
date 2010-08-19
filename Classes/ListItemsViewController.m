@@ -9,12 +9,12 @@
 #import "ListItemsViewController.h"
 #import "LibraryViewController.h"
 #import "ListDetailsViewController.h"
+#import "SetList.h"
 
 @implementation ListItemsViewController
 
 @synthesize tableView;
 @synthesize setList;
-@synthesize setListItems_;
 @synthesize managedObjectContext=managedObjectContext_;
 
 #pragma mark -
@@ -60,15 +60,7 @@
 #pragma mark Table view data source
 
 - (NSArray *)setListItems {
-  NSSortDescriptor *sortDescriptor;;
-  NSArray *sortDescriptors;
-
-  if (setListItems_ == nil) {
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-    sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    self.setListItems_ = [[self.setList setListItems] sortedArrayUsingDescriptors:sortDescriptors];
-  }
-  return setListItems_;
+  return [setList sortedItems];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -111,6 +103,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+  [setList moveItemFromRow:fromIndexPath.row toRow:toIndexPath.row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -145,7 +138,7 @@
 
 - (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(NSArray *)itemsToAdd {
   [self dismissModalViewControllerAnimated:YES];
-  self.setListItems_ = nil;
+  self.setList.sortedItems_ = nil;
   [self.tableView reloadData];
 }
 
