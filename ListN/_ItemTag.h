@@ -4,7 +4,7 @@
 #import <CoreData/CoreData.h>
 
 
-@class ItemTag;
+@class Tag;
 @class Item;
 
 
@@ -20,7 +20,7 @@
 
 
 
-@property (nonatomic, retain) ItemTag* tag;
+@property (nonatomic, retain) Tag* tag;
 //- (BOOL)validateTag:(id*)value_ error:(NSError**)error_;
 
 
@@ -40,8 +40,8 @@
 
 
 
-- (ItemTag*)primitiveTag;
-- (void)setPrimitiveTag:(ItemTag*)value;
+- (Tag*)primitiveTag;
+- (void)setPrimitiveTag:(Tag*)value;
 
 
 

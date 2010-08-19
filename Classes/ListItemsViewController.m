@@ -157,8 +157,8 @@
 
 - (void)dealloc {
   [tableView release];
-  [setList release];
-  [managedObjectContext_ release];
+//  [managedObjectContext_ release];
+//  [setList release];
   [super dealloc];
 }
 

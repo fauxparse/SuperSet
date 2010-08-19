@@ -223,7 +223,9 @@
 }
 
 - (void)dealloc {
-  [setList release];
+// FIXME: these cause crashes somehow
+//  [delegate release];
+//  [setList release];
   [cellOwner release];
   [datePicker release];
   [tableView release];

@@ -7,6 +7,7 @@
 //
 
 #import "ItemDetailsViewController.h"
+#import "ItemTagsViewController.h"
 #import "RootViewController.h"
 
 @implementation ItemDetailsViewController
@@ -18,6 +19,7 @@
 @synthesize managedObjectContext=managedObjectContext_;
 
 #define ITEM_TITLE_SECTION 0
+#define ITEM_TAGS_SECTION 1
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -37,6 +39,7 @@
 }
 
 - (void)save {
+  // TODO: don't allow blank titles!
   if (!item) {
     self.item = (Item *)[Item insertInManagedObjectContext:self.managedObjectContext];
   }
@@ -63,12 +66,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   // Return the number of sections.
-  return 1;
+  return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  // Return the number of rows in the section.
-  return 1;
+  switch (section) {
+    case ITEM_TAGS_SECTION:
+      return 1;
+    case ITEM_TITLE_SECTION:
+    default:
+      return 1;
+  }
 }
 
 // Customize the appearance of table view cells.
@@ -86,6 +94,23 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
+  } else if (indexPath.section == ITEM_TAGS_SECTION) {
+    static NSString *CellIdentifier = @"Tag";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    if (!item || ![[item tags] count]) {
+      cell.textLabel.text = [[item tags] description];
+    } else {
+      cell.textLabel.text = @"Add tags";
+    }
+    return cell;
   } else {
     static NSString *CellIdentifier = @"Cell";
     
@@ -93,8 +118,6 @@
     if (cell == nil) {
       cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
-    // Configure the cell...
     
     return cell;
   }
@@ -107,16 +130,13 @@
   UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
   if ([cell isKindOfClass:[EditableTableCell class]]) {
     [[cell textField] becomeFirstResponder];
+  } else if (indexPath.section == ITEM_TAGS_SECTION) {
+    ItemTagsViewController *detailViewController = [[ItemTagsViewController alloc] initWithNibName:@"ItemTagsViewController" bundle:nil];
+    detailViewController.item = self.item;
+    detailViewController.managedObjectContext = [self managedObjectContext];
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    [detailViewController release];
   }
-  
-  // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-   // ...
-   // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
 }
 
 #pragma mark -
@@ -143,10 +163,10 @@
 }
 
 - (void)dealloc {
-  [item release];
+//  [item release];
+  [managedObjectContext_ release];
   [cellOwner release];
   [tableView release];
-  [managedObjectContext_ release];
   [super dealloc];
 }
 
