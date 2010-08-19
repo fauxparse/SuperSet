@@ -59,10 +59,6 @@
 #pragma mark -
 #pragma mark Table view data source
 
-- (NSArray *)setListItems {
-  return [setList sortedItems];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   // Return the number of sections.
   return 1;
@@ -70,13 +66,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   // Return the number of rows in the section.
-  return [self.setListItems count];
+  return [[setList sortedItems] count];
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  SetListItem *item = (SetListItem *)[self.setListItems objectAtIndex:indexPath.row];
+  SetListItem *item = (SetListItem *)[self.setList.sortedItems objectAtIndex:indexPath.row];
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
@@ -95,7 +91,17 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    // TODO: Delete the row from the data source
+    NSManagedObjectContext *context = self.managedObjectContext;
+    [context deleteObject:[[self.setList sortedItems] objectAtIndex:indexPath.row]];
+    self.setList.sortedItems_ = nil;
+    
+    // Save the context.
+    NSError *error = nil;
+    if (![context save:&error]) {
+      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      abort();
+    }
+    
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
   } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
