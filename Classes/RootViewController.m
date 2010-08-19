@@ -81,7 +81,8 @@
   navigationController.navigationBar.barStyle = UIBarStyleBlack;
   [self presentModalViewController:navigationController animated:YES];
   [navigationController release];
-  [detailsController release];
+// FIXME: This crashes!
+// [detailsController release];
 }
 
 - (void)listDetailsViewController:(ListDetailsViewController *)listDetailsViewController didEditSetList:(SetList *)setList {
