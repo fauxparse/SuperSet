@@ -29,7 +29,7 @@
 @property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic, retain) IBOutlet CellOwner *cellOwner;
 @property (nonatomic, retain) SetList *setList;
-@property(nonatomic, assign) id <ListDetailsDelegate> delegate;
+@property (nonatomic, assign) id <ListDetailsDelegate> delegate;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 - (void)save;

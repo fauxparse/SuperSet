@@ -7,13 +7,18 @@
 //
 
 #import "LibraryViewController.h"
+#import "ItemDetailsViewController.h"
 #import "Item.h"
+#import "TDBadgedCell.h"
+#import "CheckableTableCell.h"
 
 @implementation LibraryViewController
 
 @synthesize setList;
+@synthesize tableView;
 @synthesize delegate;
 @synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_;
+@synthesize cellOwner;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -30,25 +35,41 @@
   [doneButtonItem release];
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-  static NSDateFormatter *dateFormatter = nil;
-  if (dateFormatter == nil) {
-    dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-  }
+- (void)configureCell:(CheckableTableCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+  Item *item = (Item *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+  NSInteger count;
   
-  SetList *setList = (SetList *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-  cell.textLabel.text = [setList valueForKey:@"title"];
-  cell.detailTextLabel.text = [dateFormatter stringFromDate:[setList date]];
-  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+  cell.titleLabel.text = [item valueForKey:@"title"];
+  cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+  if (setList) {
+    count = [self.setList countOf:item];
+    cell.checked = count > 0;
+    cell.countLabel.text = count ? [NSString stringWithFormat:@"%d", count] : @"";
+  }
 }
 
 - (IBAction) addNewItem {
+  ItemDetailsViewController *detailsController = [[ItemDetailsViewController alloc] initWithNibName:@"ItemDetailsViewController" bundle:nil];
+  detailsController.delegate = self;
+  detailsController.managedObjectContext = self.managedObjectContext;
+  
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:detailsController];
+  navigationController.navigationBar.barStyle = UIBarStyleBlack;
+  [self presentModalViewController:navigationController animated:YES];
+  [navigationController release];
+  [detailsController release];
 }
 
 - (IBAction) closeLibrary {
   NSArray *itemsToAdd = [[NSMutableArray alloc] initWithObjects:nil];
   [self.delegate libraryViewController:self addedItems:itemsToAdd];
+}
+
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item {
+  [self dismissModalViewControllerAnimated:YES];
+  [self.tableView reloadData];
 }
 
 #pragma mark -
@@ -65,11 +86,12 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"Item";
+  static NSString *CellIdentifier = @"CheckableTableCell";
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    [cellOwner loadMyNibFile:CellIdentifier];
+    cell = (EditableTableCell *) cellOwner.cell;
   }
   
   [self configureCell:cell atIndexPath:indexPath];
@@ -109,6 +131,26 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  Item *item = (Item *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+  SetListItem *newItem;
+  
+  if (setList) {
+    newItem = (SetListItem *)[SetListItem insertInManagedObjectContext:self.managedObjectContext];
+    newItem.item = item;
+    newItem.position = [NSNumber numberWithInteger:[setList.setListItems count]];
+    [setList addSetListItemsObject:newItem];
+    [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+    NSError *error = nil;
+    if (![newItem.managedObjectContext save:&error]) {
+      /*
+       Replace this implementation with code to handle the error appropriately.
+       abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+       */
+      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+      abort();
+    }
+  }
+  
     // Navigation logic may go here. Create and push another view controller.
 	/*
 	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -234,22 +276,22 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc that aren't in use.
+  // Releases the view if it doesn't have a superview.
+  [super didReceiveMemoryWarning];
+  
+  // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
+  // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
+  // For example: self.myOutlet = nil;
 }
 
 - (void)dealloc {
-  [setList release];
-  [tableView release];
   [fetchedResultsController_ release];
   [managedObjectContext_ release];
+  [setList release];
+  [tableView release];
   [super dealloc];
 }
 

@@ -1,25 +1,23 @@
 //
-//  ListDetailsViewController.m
+//  ItemDetailsViewController.m
 //  ListN
 //
 //  Created by Matt Powell on 18/08/10.
 //  Copyright 2010 Matt Powell. All rights reserved.
 //
 
-#import "ListDetailsViewController.h"
+#import "ItemDetailsViewController.h"
 #import "RootViewController.h"
-#import "SetList.h"
 
-@implementation ListDetailsViewController
+@implementation ItemDetailsViewController
 
 @synthesize tableView;
-@synthesize datePicker;
 @synthesize cellOwner;
 @synthesize delegate;
-@synthesize setList;
+@synthesize item;
 @synthesize managedObjectContext=managedObjectContext_;
 
-#define LIST_TITLE_SECTION 0
+#define ITEM_TITLE_SECTION 0
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -27,12 +25,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  self.navigationItem.title = @"List Details";
+  self.navigationItem.title = @"Item Details";
 
-  if (setList.date) {
-    datePicker.date = setList.date;
-  }
-  
   UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
   self.navigationItem.leftBarButtonItem = cancelButtonItem;
   [cancelButtonItem release];
@@ -42,55 +36,26 @@
   [saveButtonItem release];
 }
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
 - (void)save {
-  if (!setList) {
-    self.setList = (SetList*)[SetList insertInManagedObjectContext:self.managedObjectContext];
+  if (!item) {
+    self.item = (Item *)[Item insertInManagedObjectContext:self.managedObjectContext];
   }
   
   EditableTableCell *cell;
-  cell = (EditableTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  setList.title = cell.textField.text;
-  setList.date = datePicker.date;
+  cell = (EditableTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ITEM_TITLE_SECTION]];
+  item.title = cell.textField.text;
 	
   NSError *error = nil;
-	if (![setList.managedObjectContext save:&error]) {
+	if (![item.managedObjectContext save:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
   
-	[self.delegate listDetailsViewController:self didEditSetList:setList];
+	[self.delegate itemDetailsViewController:self didEditItem:item];
 }
 
 - (void)cancel {
-	[self.delegate listDetailsViewController:self didEditSetList:nil];
+	[self.delegate itemDetailsViewController:self didEditItem:nil];
 }
 
 #pragma mark -
@@ -108,15 +73,15 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  if (indexPath.section == LIST_TITLE_SECTION) {
+  if (indexPath.section == ITEM_TITLE_SECTION) {
     static NSString *CellIdentifier = @"EditableTableCell";
     EditableTableCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
       [cellOwner loadMyNibFile:CellIdentifier];
       cell = (EditableTableCell *) cellOwner.cell;
     }
-    cell.textField.placeholder = @"List Title";
-    cell.textField.text = setList.title;
+    cell.textField.placeholder = @"Title";
+    cell.textField.text = item.title;
     cell.textField.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -135,51 +100,6 @@
   }
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-//- (BOOL)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//  return NO;
-//}
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -189,11 +109,11 @@
     [[cell textField] becomeFirstResponder];
   }
   
-    // Navigation logic may go here. Create and push another view controller.
+  // Navigation logic may go here. Create and push another view controller.
 	/*
 	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
+   // ...
+   // Pass the selected object to the new view controller.
 	 [self.navigationController pushViewController:detailViewController animated:YES];
 	 [detailViewController release];
 	 */
@@ -223,9 +143,8 @@
 }
 
 - (void)dealloc {
-  [setList release];
+  [item release];
   [cellOwner release];
-  [datePicker release];
   [tableView release];
   [managedObjectContext_ release];
   [super dealloc];

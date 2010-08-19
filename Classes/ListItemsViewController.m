@@ -14,6 +14,7 @@
 
 @synthesize tableView;
 @synthesize setList;
+@synthesize setListItems_;
 @synthesize managedObjectContext=managedObjectContext_;
 
 #pragma mark -
@@ -58,6 +59,18 @@
 #pragma mark -
 #pragma mark Table view data source
 
+- (NSArray *)setListItems {
+  NSSortDescriptor *sortDescriptor;;
+  NSArray *sortDescriptors;
+
+  if (setListItems_ == nil) {
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+    sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    self.setListItems_ = [[self.setList setListItems] sortedArrayUsingDescriptors:sortDescriptors];
+  }
+  return setListItems_;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   // Return the number of sections.
   return 1;
@@ -65,19 +78,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   // Return the number of rows in the section.
-  return 5;
+  return [self.setListItems count];
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
+  SetListItem *item = (SetListItem *)[self.setListItems objectAtIndex:indexPath.row];
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
   }
-    
-  // Configure the cell...
+  
+  cell.textLabel.text = item.item.title;
     
   return cell;
 }
@@ -131,6 +145,8 @@
 
 - (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(NSArray *)itemsToAdd {
   [self dismissModalViewControllerAnimated:YES];
+  self.setListItems_ = nil;
+  [self.tableView reloadData];
 }
 
 #pragma mark -

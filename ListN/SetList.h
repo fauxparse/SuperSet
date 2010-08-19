@@ -1,5 +1,9 @@
 #import "_SetList.h"
 
+@class Item;
+
 @interface SetList : _SetList {}
-// Custom logic goes here.
+
+-(NSInteger)countOf:(Item *)item;
+
 @end
