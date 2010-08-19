@@ -2,6 +2,7 @@
 *.swp
 *~.nib
 *.certSigningRequest
+*.mobileprovision
 
 build/
 
