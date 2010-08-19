@@ -54,6 +54,17 @@
 }
 	
 
+@dynamic itemTags;
+
+	
+- (NSMutableSet*)itemTagsSet {
+	[self willAccessValueForKey:@"itemTags"];
+	NSMutableSet *result = [self mutableSetValueForKey:@"itemTags"];
+	[self didAccessValueForKey:@"itemTags"];
+	return result;
+}
+	
+
 
 
 @end

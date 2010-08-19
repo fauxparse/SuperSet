@@ -5,6 +5,7 @@
 
 
 @class SetListItem;
+@class ItemTag;
 
 
 
@@ -38,6 +39,11 @@
 
 
 
+@property (nonatomic, retain) NSSet* itemTags;
+- (NSMutableSet*)itemTagsSet;
+
+
+
 @end
 
 @interface _Item (CoreDataGeneratedAccessors)
@@ -46,6 +52,11 @@
 - (void)removeSetListItems:(NSSet*)value_;
 - (void)addSetListItemsObject:(SetListItem*)value_;
 - (void)removeSetListItemsObject:(SetListItem*)value_;
+
+- (void)addItemTags:(NSSet*)value_;
+- (void)removeItemTags:(NSSet*)value_;
+- (void)addItemTagsObject:(ItemTag*)value_;
+- (void)removeItemTagsObject:(ItemTag*)value_;
 
 @end
 
@@ -63,6 +74,11 @@
 
 - (NSMutableSet*)primitiveSetListItems;
 - (void)setPrimitiveSetListItems:(NSMutableSet*)value;
+
+
+
+- (NSMutableSet*)primitiveItemTags;
+- (void)setPrimitiveItemTags:(NSMutableSet*)value;
 
 
 @end

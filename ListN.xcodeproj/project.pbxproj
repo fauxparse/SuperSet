@@ -20,12 +20,6 @@
 		C91380B8121C824500716414 /* ItemDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91380B7121C824500716414 /* ItemDetailsViewController.xib */; };
 		C91380BB121C82B700716414 /* ItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380BA121C82B700716414 /* ItemDetailsViewController.m */; };
 		C913810C121C919D00716414 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C913810B121C919D00716414 /* TDBadgedCell.m */; };
-		C9138183121CA04500716414 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380A4121BA19B00716414 /* Item.m */; };
-		C9138184121CA04A00716414 /* SetList.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380A5121BA19B00716414 /* SetList.m */; };
-		C9138185121CA04F00716414 /* SetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380A6121BA19C00716414 /* SetListItem.m */; };
-		C9138186121CA05400716414 /* _Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380AA121BA19D00716414 /* _Item.m */; };
-		C9138187121CA05800716414 /* _SetList.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380AB121BA19D00716414 /* _SetList.m */; };
-		C9138188121CA05C00716414 /* _SetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C91380AC121BA19D00716414 /* _SetListItem.m */; };
 		C913828B121CB85700716414 /* CheckableTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C913828A121CB85700716414 /* CheckableTableCell.m */; };
 		C9138292121CB99700716414 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = C9138290121CB99700716414 /* checked.png */; };
 		C9138293121CB99700716414 /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = C9138291121CB99700716414 /* unchecked.png */; };
@@ -40,6 +34,14 @@
 		C947B459121B64D500843C5C /* CellOwner.m in Sources */ = {isa = PBXBuildFile; fileRef = C947B456121B64D500843C5C /* CellOwner.m */; };
 		C947B45A121B64D500843C5C /* EditableTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C947B458121B64D500843C5C /* EditableTableCell.m */; };
 		C947B469121B66DB00843C5C /* EditableTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C947B468121B66DB00843C5C /* EditableTableCell.xib */; };
+		C9E7E87A121D15E0008CF695 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E867121D1572008CF695 /* Item.m */; };
+		C9E7E87B121D15E0008CF695 /* ItemTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E868121D1572008CF695 /* ItemTag.m */; };
+		C9E7E87C121D15E0008CF695 /* SetList.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E869121D1572008CF695 /* SetList.m */; };
+		C9E7E87D121D15E0008CF695 /* SetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E86A121D1573008CF695 /* SetListItem.m */; };
+		C9E7E881121D15F2008CF695 /* _Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E86F121D1573008CF695 /* _Item.m */; };
+		C9E7E882121D15F2008CF695 /* _ItemTag.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E870121D1573008CF695 /* _ItemTag.m */; };
+		C9E7E883121D15F2008CF695 /* _SetList.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E871121D1573008CF695 /* _SetList.m */; };
+		C9E7E884121D15F2008CF695 /* _SetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C9E7E872121D1573008CF695 /* _SetListItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,18 +60,6 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ListN-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ListN-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		C91380A4121BA19B00716414 /* Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		C91380A5121BA19B00716414 /* SetList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetList.m; sourceTree = "<group>"; };
-		C91380A6121BA19C00716414 /* SetListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetListItem.m; sourceTree = "<group>"; };
-		C91380A7121BA19C00716414 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		C91380A8121BA19C00716414 /* SetList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetList.h; sourceTree = "<group>"; };
-		C91380A9121BA19C00716414 /* SetListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetListItem.h; sourceTree = "<group>"; };
-		C91380AA121BA19D00716414 /* _Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _Item.m; sourceTree = "<group>"; };
-		C91380AB121BA19D00716414 /* _SetList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _SetList.m; sourceTree = "<group>"; };
-		C91380AC121BA19D00716414 /* _SetListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _SetListItem.m; sourceTree = "<group>"; };
-		C91380AD121BA19D00716414 /* _Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _Item.h; sourceTree = "<group>"; };
-		C91380AE121BA19D00716414 /* _SetList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _SetList.h; sourceTree = "<group>"; };
-		C91380AF121BA19E00716414 /* _SetListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _SetListItem.h; sourceTree = "<group>"; };
 		C91380B7121C824500716414 /* ItemDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ItemDetailsViewController.xib; path = Classes/ItemDetailsViewController.xib; sourceTree = "<group>"; };
 		C91380B9121C82B700716414 /* ItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemDetailsViewController.h; sourceTree = "<group>"; };
 		C91380BA121C82B700716414 /* ItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemDetailsViewController.m; sourceTree = "<group>"; };
@@ -95,6 +85,22 @@
 		C947B457121B64D500843C5C /* EditableTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditableTableCell.h; sourceTree = "<group>"; };
 		C947B458121B64D500843C5C /* EditableTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditableTableCell.m; sourceTree = "<group>"; };
 		C947B468121B66DB00843C5C /* EditableTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EditableTableCell.xib; path = Classes/EditableTableCell.xib; sourceTree = "<group>"; };
+		C9E7E867121D1572008CF695 /* Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		C9E7E868121D1572008CF695 /* ItemTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemTag.m; sourceTree = "<group>"; };
+		C9E7E869121D1572008CF695 /* SetList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetList.m; sourceTree = "<group>"; };
+		C9E7E86A121D1573008CF695 /* SetListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetListItem.m; sourceTree = "<group>"; };
+		C9E7E86B121D1573008CF695 /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		C9E7E86C121D1573008CF695 /* ItemTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemTag.h; sourceTree = "<group>"; };
+		C9E7E86D121D1573008CF695 /* SetList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetList.h; sourceTree = "<group>"; };
+		C9E7E86E121D1573008CF695 /* SetListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetListItem.h; sourceTree = "<group>"; };
+		C9E7E86F121D1573008CF695 /* _Item.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _Item.m; sourceTree = "<group>"; };
+		C9E7E870121D1573008CF695 /* _ItemTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _ItemTag.m; sourceTree = "<group>"; };
+		C9E7E871121D1573008CF695 /* _SetList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _SetList.m; sourceTree = "<group>"; };
+		C9E7E872121D1573008CF695 /* _SetListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _SetListItem.m; sourceTree = "<group>"; };
+		C9E7E873121D1574008CF695 /* _Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _Item.h; sourceTree = "<group>"; };
+		C9E7E874121D1574008CF695 /* _ItemTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _ItemTag.h; sourceTree = "<group>"; };
+		C9E7E875121D1574008CF695 /* _SetList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _SetList.h; sourceTree = "<group>"; };
+		C9E7E876121D1574008CF695 /* _SetListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _SetListItem.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,18 +216,22 @@
 		C947B351121B3DF600843C5C /* ListN */ = {
 			isa = PBXGroup;
 			children = (
-				C91380A4121BA19B00716414 /* Item.m */,
-				C91380A5121BA19B00716414 /* SetList.m */,
-				C91380A6121BA19C00716414 /* SetListItem.m */,
-				C91380A7121BA19C00716414 /* Item.h */,
-				C91380A8121BA19C00716414 /* SetList.h */,
-				C91380A9121BA19C00716414 /* SetListItem.h */,
-				C91380AA121BA19D00716414 /* _Item.m */,
-				C91380AB121BA19D00716414 /* _SetList.m */,
-				C91380AC121BA19D00716414 /* _SetListItem.m */,
-				C91380AD121BA19D00716414 /* _Item.h */,
-				C91380AE121BA19D00716414 /* _SetList.h */,
-				C91380AF121BA19E00716414 /* _SetListItem.h */,
+				C9E7E867121D1572008CF695 /* Item.m */,
+				C9E7E868121D1572008CF695 /* ItemTag.m */,
+				C9E7E869121D1572008CF695 /* SetList.m */,
+				C9E7E86A121D1573008CF695 /* SetListItem.m */,
+				C9E7E86B121D1573008CF695 /* Item.h */,
+				C9E7E86C121D1573008CF695 /* ItemTag.h */,
+				C9E7E86D121D1573008CF695 /* SetList.h */,
+				C9E7E86E121D1573008CF695 /* SetListItem.h */,
+				C9E7E86F121D1573008CF695 /* _Item.m */,
+				C9E7E870121D1573008CF695 /* _ItemTag.m */,
+				C9E7E871121D1573008CF695 /* _SetList.m */,
+				C9E7E872121D1573008CF695 /* _SetListItem.m */,
+				C9E7E873121D1574008CF695 /* _Item.h */,
+				C9E7E874121D1574008CF695 /* _ItemTag.h */,
+				C9E7E875121D1574008CF695 /* _SetList.h */,
+				C9E7E876121D1574008CF695 /* _SetListItem.h */,
 			);
 			path = ListN;
 			sourceTree = "<group>";
@@ -332,13 +342,15 @@
 				C947B45A121B64D500843C5C /* EditableTableCell.m in Sources */,
 				C91380BB121C82B700716414 /* ItemDetailsViewController.m in Sources */,
 				C913810C121C919D00716414 /* TDBadgedCell.m in Sources */,
-				C9138183121CA04500716414 /* Item.m in Sources */,
-				C9138184121CA04A00716414 /* SetList.m in Sources */,
-				C9138185121CA04F00716414 /* SetListItem.m in Sources */,
-				C9138186121CA05400716414 /* _Item.m in Sources */,
-				C9138187121CA05800716414 /* _SetList.m in Sources */,
-				C9138188121CA05C00716414 /* _SetListItem.m in Sources */,
 				C913828B121CB85700716414 /* CheckableTableCell.m in Sources */,
+				C9E7E87A121D15E0008CF695 /* Item.m in Sources */,
+				C9E7E87B121D15E0008CF695 /* ItemTag.m in Sources */,
+				C9E7E87C121D15E0008CF695 /* SetList.m in Sources */,
+				C9E7E87D121D15E0008CF695 /* SetListItem.m in Sources */,
+				C9E7E881121D15F2008CF695 /* _Item.m in Sources */,
+				C9E7E882121D15F2008CF695 /* _ItemTag.m in Sources */,
+				C9E7E883121D15F2008CF695 /* _SetList.m in Sources */,
+				C9E7E884121D15F2008CF695 /* _SetListItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
