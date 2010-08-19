@@ -76,10 +76,11 @@
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
-    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
   
   cell.textLabel.text = item.item.title;
+//  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", item.position];
     
   return cell;
 }
@@ -91,18 +92,9 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
-    NSManagedObjectContext *context = self.managedObjectContext;
-    [context deleteObject:[[self.setList sortedItems] objectAtIndex:indexPath.row]];
-    self.setList.sortedItems_ = nil;
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-      NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-      abort();
-    }
-    
+    [setList deleteItemAtIndex:indexPath.row];
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+    [tableView reloadData];
   } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
   }   

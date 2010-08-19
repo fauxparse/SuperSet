@@ -44,6 +44,25 @@
   self.sortedItems_ = nil;
 }
 
+-(void)deleteItemAtIndex:(NSUInteger)index {
+  NSArray *items = [[NSArray alloc] initWithArray:self.sortedItems];
+  for (int i = index + 1; i < [items count]; i++) {
+    [[items objectAtIndex:i] updatePosition:i-1];
+  }
+  [items dealloc];
+  
+  NSManagedObjectContext *context = self.managedObjectContext;
+  [context deleteObject:[[self sortedItems] objectAtIndex:index]];
+  self.sortedItems_ = nil;
+  
+  // Save the context.
+  NSError *error = nil;
+  if (![context save:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+}
+
 -(void)dealloc {
   [sortedItems_ dealloc];
   [super dealloc];

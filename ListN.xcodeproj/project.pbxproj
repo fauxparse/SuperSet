@@ -115,9 +115,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C947B45B121B64D900843C5C /* Table Cells */,
 				C91380B9121C82B700716414 /* ItemDetailsViewController.h */,
 				C91380BA121C82B700716414 /* ItemDetailsViewController.m */,
-				C947B45B121B64D900843C5C /* Table Cells */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* ListNAppDelegate.h */,

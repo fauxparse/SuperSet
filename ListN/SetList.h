@@ -11,5 +11,6 @@
 -(NSInteger)countOf:(Item *)item;
 -(NSArray*)sortedItems;
 -(void)moveItemFromRow:(NSUInteger)fromRow toRow:(NSUInteger)toRow;
+-(void)deleteItemAtIndex:(NSUInteger)index;
 
 @end
