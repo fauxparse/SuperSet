@@ -67,8 +67,12 @@
   [self.delegate libraryViewController:self addedItems:nil];
 }
 
-- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item {
-  [self dismissModalViewControllerAnimated:YES];
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item wasNew:(BOOL)wasNew {
+  if (wasNew) {
+    [self dismissModalViewControllerAnimated:YES];
+  } else {
+    [self.navigationController popViewControllerAnimated:YES];
+  }
   [self.tableView reloadData];
 }
 
@@ -159,6 +163,14 @@
 	 [self.navigationController pushViewController:detailViewController animated:YES];
 	 [detailViewController release];
 	 */
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+  ItemDetailsViewController *detailsController = [[ItemDetailsViewController alloc] initWithNibName:@"ItemDetailsViewController" bundle:nil];
+  detailsController.delegate = self;
+  detailsController.managedObjectContext = self.managedObjectContext;
+  detailsController.item = (Item *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+  [self.navigationController pushViewController:detailsController animated:YES];
 }
 
 #pragma mark -

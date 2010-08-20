@@ -16,7 +16,7 @@
 @synthesize cellOwner;
 @synthesize delegate;
 @synthesize item;
-@synthesize title;
+@synthesize itemTitle;
 @synthesize tags;
 @synthesize managedObjectContext=managedObjectContext_;
 
@@ -41,10 +41,10 @@
   
   if (item) {
     self.tags = [[NSMutableSet alloc] initWithSet:item.tags];
-    self.title = [[NSMutableString alloc] initWithString:item.title];
+    self.itemTitle = [[NSMutableString alloc] initWithString:item.title];
   } else {
     self.tags = [[NSMutableSet alloc] initWithCapacity:3];
-    self.title = [[NSMutableString alloc] initWithString:@""];
+    self.itemTitle = [[NSMutableString alloc] initWithString:@""];
   }
 }
 
@@ -55,13 +55,15 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
   EditableTableCell *cell = (EditableTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ITEM_TITLE_SECTION]];
-  [self.title setString:cell.textField.text];
+  [self.itemTitle setString:cell.textField.text];
   [super viewWillDisappear:animated];
 }
 
 - (void)save {
+  BOOL wasNew = !item;
+  
   // TODO: don't allow blank titles!
-  if (!item) {
+  if (wasNew) {
     self.item = (Item *)[Item insertInManagedObjectContext:self.managedObjectContext];
   }
   
@@ -76,11 +78,12 @@
 	}
 
   [item setTags:[self tags]];
-	[self.delegate itemDetailsViewController:self didEditItem:item];
+	[self.delegate itemDetailsViewController:self didEditItem:item wasNew:wasNew];
 }
 
 - (void)cancel {
-	[self.delegate itemDetailsViewController:self didEditItem:nil];
+  BOOL wasNew = !item;
+	[self.delegate itemDetailsViewController:self didEditItem:nil wasNew:wasNew];
 }
 
 #pragma mark -
@@ -120,7 +123,7 @@
       cell = (EditableTableCell *) cellOwner.cell;
     }
     cell.textField.placeholder = @"Title";
-    cell.textField.text = self.title;
+    cell.textField.text = self.itemTitle;
     cell.textField.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -185,7 +188,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
-  [self.title setString:textField.text];
+  [self.itemTitle setString:textField.text];
 	return YES;
 }
 
@@ -207,7 +210,7 @@
 - (void)dealloc {
 //  [item release];
   [tags dealloc];
-  [title dealloc];
+  [itemTitle dealloc];
   [managedObjectContext_ release];
   [cellOwner release];
   [tableView release];

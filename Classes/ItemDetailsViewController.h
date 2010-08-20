@@ -20,7 +20,7 @@
   
   Item *item;
   NSMutableSet *tags;
-  NSMutableString *title;
+  NSMutableString *itemTitle;
   id <ItemDetailsDelegate> delegate;
   
 @private
@@ -31,7 +31,7 @@
 @property (nonatomic, retain) IBOutlet CellOwner *cellOwner;
 @property (nonatomic, retain) Item *item;
 @property (nonatomic, retain) NSMutableSet *tags;
-@property (nonatomic, retain) NSMutableString *title;
+@property (nonatomic, retain) NSMutableString *itemTitle;
 @property (nonatomic, assign) id <ItemDetailsDelegate> delegate;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
@@ -41,5 +41,5 @@
 @end
 
 @protocol ItemDetailsDelegate <NSObject>
-- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item;
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item wasNew:(BOOL)wasNew;
 @end
