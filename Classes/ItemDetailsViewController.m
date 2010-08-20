@@ -16,6 +16,8 @@
 @synthesize cellOwner;
 @synthesize delegate;
 @synthesize item;
+@synthesize title;
+@synthesize tags;
 @synthesize managedObjectContext=managedObjectContext_;
 
 #define ITEM_TITLE_SECTION 0
@@ -36,6 +38,25 @@
   UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(save)];
   self.navigationItem.rightBarButtonItem = saveButtonItem;
   [saveButtonItem release];
+  
+  if (item) {
+    self.tags = [[NSMutableSet alloc] initWithSet:item.tags];
+    self.title = [[NSMutableString alloc] initWithString:item.title];
+  } else {
+    self.tags = [[NSMutableSet alloc] initWithCapacity:3];
+    self.title = [[NSMutableString alloc] initWithString:@""];
+  }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [tableView reloadData];
+  [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+  EditableTableCell *cell = (EditableTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ITEM_TITLE_SECTION]];
+  [self.title setString:cell.textField.text];
+  [super viewWillDisappear:animated];
 }
 
 - (void)save {
@@ -53,7 +74,8 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
-  
+
+  [item setTags:[self tags]];
 	[self.delegate itemDetailsViewController:self didEditItem:item];
 }
 
@@ -79,6 +101,15 @@
   }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+  if (indexPath.section == ITEM_TAGS_SECTION) {
+    int i = [tags count];
+    return i < 1 ? 44 : i * 32;
+  } else {
+    return 44;
+  }
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section == ITEM_TITLE_SECTION) {
@@ -89,7 +120,7 @@
       cell = (EditableTableCell *) cellOwner.cell;
     }
     cell.textField.placeholder = @"Title";
-    cell.textField.text = item.title;
+    cell.textField.text = self.title;
     cell.textField.delegate = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -105,10 +136,19 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    if (!item || ![[item tags] count]) {
-      cell.textLabel.text = [[item tags] description];
+    if ([tags count]) {
+      NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
+      NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+      NSArray *tagNames = [[NSArray alloc] initWithArray:[self.tags sortedArrayUsingDescriptors:sortDescriptors]];
+      [sortDescriptors dealloc];
+      [sortDescriptor dealloc];
+      
+      cell.textLabel.text = [tagNames componentsJoinedByString:@"\n"];
+      cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+      cell.textLabel.numberOfLines = [tagNames count];
     } else {
       cell.textLabel.text = @"Add tags";
+      cell.textLabel.numberOfLines = 1;
     }
     return cell;
   } else {
@@ -133,6 +173,7 @@
   } else if (indexPath.section == ITEM_TAGS_SECTION) {
     ItemTagsViewController *detailViewController = [[ItemTagsViewController alloc] initWithNibName:@"ItemTagsViewController" bundle:nil];
     detailViewController.item = self.item;
+    detailViewController.tags = self.tags;
     detailViewController.managedObjectContext = [self managedObjectContext];
     [self.navigationController pushViewController:detailViewController animated:YES];
     [detailViewController release];
@@ -144,6 +185,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
+  [self.title setString:textField.text];
 	return YES;
 }
 
@@ -164,6 +206,8 @@
 
 - (void)dealloc {
 //  [item release];
+  [tags dealloc];
+  [title dealloc];
   [managedObjectContext_ release];
   [cellOwner release];
   [tableView release];

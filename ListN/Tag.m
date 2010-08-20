@@ -2,6 +2,12 @@
 
 @implementation Tag
 
-// Custom logic goes here.
+- (NSString *)description {
+  return [self tag];
+}
+
+- (NSComparisonResult)compare:(Tag *)aTag {
+  return [self.tag caseInsensitiveCompare:[aTag tag]];
+}
 
 @end

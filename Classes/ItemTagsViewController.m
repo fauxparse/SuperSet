@@ -12,6 +12,7 @@
 @implementation ItemTagsViewController
 
 @synthesize item;
+@synthesize tags;
 @synthesize tableView;
 @synthesize newTag;
 @synthesize addTag;
@@ -22,15 +23,17 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
   self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (IBAction)goBack:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
 }
-*/
+
+//- (void)viewWillAppear:(BOOL)animated {
+//  [super viewWillAppear:animated];
+//}
+
 /*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -56,6 +59,15 @@
 
 
 #pragma mark -
+#pragma mark Text field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	[newTag resignFirstResponder];
+  [self add];
+	return YES;
+}
+
+#pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -70,9 +82,14 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
   Tag *tag = (Tag *)[self.fetchedResultsController objectAtIndexPath:indexPath];
   cell.textLabel.text = [tag tag];
-  NSUInteger count = [[tag itemTags] count];
-  cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", count];
-  cell.accessoryType = UITableViewCellAccessoryNone;
+//  NSUInteger count = [[tag itemTags] count];
+//  cell.detailTextLabel.text = count ? [NSString stringWithFormat:@"%d", count] : @"";
+  if ([self.tags containsObject:tag]) {
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  } else {
+    cell.accessoryType = UITableViewCellAccessoryNone;
+  }
+  cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 // Customize the appearance of table view cells.
@@ -95,18 +112,14 @@
   return NO;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+  return YES;
 }
-*/
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    [self.tags removeObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     
     // Save the context.
@@ -118,23 +131,6 @@
   }   
 }
 
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -144,14 +140,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+  Tag *tag = (Tag *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+  if ([self.tags containsObject:tag]) {
+    [self.tags removeObject:tag];
+  } else {
+    [self.tags addObject:tag];
+  }
+  [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+  
+  [tableView reloadData];
 }
 
 - (IBAction) add {

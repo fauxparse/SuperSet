@@ -2,6 +2,8 @@
 
 @implementation ItemTag
 
-// Custom logic goes here.
+- (NSString *) tagText {
+  [self.tag tag];
+}
 
 @end

@@ -19,6 +19,8 @@
   IBOutlet CellOwner *cellOwner;
   
   Item *item;
+  NSMutableSet *tags;
+  NSMutableString *title;
   id <ItemDetailsDelegate> delegate;
   
 @private
@@ -28,6 +30,8 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet CellOwner *cellOwner;
 @property (nonatomic, retain) Item *item;
+@property (nonatomic, retain) NSMutableSet *tags;
+@property (nonatomic, retain) NSMutableString *title;
 @property (nonatomic, assign) id <ItemDetailsDelegate> delegate;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 

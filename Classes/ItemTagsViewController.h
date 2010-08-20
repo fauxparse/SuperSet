@@ -11,8 +11,9 @@
 #import "Item.h"
 #import "Tag.h"
 
-@interface ItemTagsViewController : UIViewController <NSFetchedResultsControllerDelegate> {
+@interface ItemTagsViewController : UIViewController <NSFetchedResultsControllerDelegate, UITextFieldDelegate> {
   Item *item;
+  NSMutableSet *tags;
   IBOutlet UITableView *tableView;
   IBOutlet UITextField *newTag;
   IBOutlet UIBarButtonItem *addTag;
@@ -26,6 +27,7 @@
 - (IBAction) tagChanged;
 
 @property (nonatomic, retain) Item *item;
+@property (nonatomic, retain) NSMutableSet *tags;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UITextField *newTag;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *addTag;

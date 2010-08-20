@@ -72,15 +72,16 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   static NSString *CellIdentifier = @"Cell";
-  SetListItem *item = (SetListItem *)[self.setList.sortedItems objectAtIndex:indexPath.row];
+  SetListItem *listItem = (SetListItem *)[self.setList.sortedItems objectAtIndex:indexPath.row];
+  Item *item = [listItem item];
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
   if (cell == nil) {
     cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
   }
-  
-  cell.textLabel.text = item.item.title;
-//  cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", item.position];
+    
+  cell.textLabel.text = [item title];
+  cell.detailTextLabel.text = [item tagDescription];
     
   return cell;
 }

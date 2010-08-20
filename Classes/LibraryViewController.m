@@ -42,11 +42,12 @@
   cell.titleLabel.text = [item valueForKey:@"title"];
   cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
   cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  cell.descriptionLabel.text = [item tagDescription];
 
   if (setList) {
     count = [self.setList countOf:item];
     cell.checked = count > 0;
-    cell.countLabel.text = count ? [NSString stringWithFormat:@"%d", count] : @"";
+    cell.countLabel.text = count > 1 ? [NSString stringWithFormat:@"%d", count] : @"";
   }
 }
 
