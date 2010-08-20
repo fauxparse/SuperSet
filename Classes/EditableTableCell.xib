@@ -66,7 +66,7 @@
 									</object>
 								</object>
 								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica</string>
+									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
@@ -175,7 +175,7 @@
 					<string>CellOwner</string>
 					<string>UIResponder</string>
 					<string>EditableTableCell</string>
-					<string>{{339, 856}, {320, 44}}</string>
+					<string>{{339, 778}, {0, -22}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
