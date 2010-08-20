@@ -3,14 +3,15 @@
 @class Item;
 
 @interface SetList : _SetList {
-  NSArray *sortedItems_;
+  NSMutableArray *sortedItems_;
 }
 
-@property (nonatomic, retain) NSArray *sortedItems_;
+@property (nonatomic, retain) NSMutableArray *sortedItems_;
 
 -(NSInteger)countOf:(Item *)item;
--(NSArray*)sortedItems;
+-(NSMutableArray*)sortedItems;
 -(void)moveItemFromRow:(NSUInteger)fromRow toRow:(NSUInteger)toRow;
 -(void)deleteItemAtIndex:(NSUInteger)index;
+-(void)addSetListItem:(SetListItem *)item;
 
 @end

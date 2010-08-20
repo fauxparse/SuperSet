@@ -93,7 +93,6 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     [setList deleteItemAtIndex:indexPath.row];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
     [tableView reloadData];
   } else if (editingStyle == UITableViewCellEditingStyleInsert) {
     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -134,9 +133,8 @@
   }
 }
 
-- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(NSArray *)itemsToAdd {
+- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList {
   [self dismissModalViewControllerAnimated:YES];
-  self.setList.sortedItems_ = nil;
   [self.tableView reloadData];
 }
 

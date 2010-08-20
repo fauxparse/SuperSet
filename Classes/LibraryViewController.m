@@ -63,8 +63,7 @@
 }
 
 - (IBAction) closeLibrary {
-  NSArray *itemsToAdd = [[NSMutableArray alloc] initWithObjects:nil];
-  [self.delegate libraryViewController:self addedItems:itemsToAdd];
+  [self.delegate libraryViewController:self addedItems:nil];
 }
 
 - (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item {
@@ -138,7 +137,7 @@
     newItem = (SetListItem *)[SetListItem insertInManagedObjectContext:self.managedObjectContext];
     newItem.item = item;
     newItem.position = [NSNumber numberWithInteger:[setList.setListItems count]];
-    [setList addSetListItemsObject:newItem];
+    [setList addSetListItem:newItem];
     [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
     NSError *error = nil;
     if (![newItem.managedObjectContext save:&error]) {
@@ -288,6 +287,7 @@
 }
 
 - (void)dealloc {
+  [cellOwner release];
   [fetchedResultsController_ release];
   [managedObjectContext_ release];
   [setList release];

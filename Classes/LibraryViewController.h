@@ -36,5 +36,5 @@
 @end
 
 @protocol LibraryViewDelegate <NSObject>
-- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(NSArray *)itemsToAdd;
+- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList;
 @end
