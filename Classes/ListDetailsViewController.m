@@ -29,9 +29,7 @@
 
   self.navigationItem.title = @"List Details";
 
-  if (setList.date) {
-    datePicker.date = setList.date;
-  }
+  datePicker.date = setList && setList.date ? setList.date : [NSDate date];
   
   UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
   self.navigationItem.leftBarButtonItem = cancelButtonItem;
