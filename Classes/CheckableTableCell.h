@@ -1,6 +1,6 @@
 //
 //  CheckableTableCell.h
-//  ListN
+//  SuperSet
 //
 //  Created by Matt Powell on 19/08/10.
 //  Copyright 2010 Matt Powell. All rights reserved.

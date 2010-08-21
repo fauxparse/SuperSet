@@ -1,6 +1,6 @@
 //
 //  main.m
-//  ListN
+//  SuperSet
 //
 //  Created by Matt Powell on 18/08/10.
 //  Copyright Matt Powell 2010. All rights reserved.

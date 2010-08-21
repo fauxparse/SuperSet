@@ -1,6 +1,6 @@
 //
 //  ItemTagsViewController.m
-//  ListN
+//  SuperSet
 //
 //  Created by Matt Powell on 19/08/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.

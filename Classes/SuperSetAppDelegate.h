@@ -1,15 +1,15 @@
 //
-//  ListNAppDelegate.h
-//  ListN
+//  SuperSetAppDelegate.h
+//  SuperSet
 //
-//  Created by Matt Powell on 18/08/10.
-//  Copyright Matt Powell 2010. All rights reserved.
+//  Created by Matt Powell on 22/08/10.
+//  Copyright __MyCompanyName__ 2010. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface ListNAppDelegate : NSObject <UIApplicationDelegate> {
+@interface SuperSetAppDelegate : NSObject <UIApplicationDelegate> {
     
     UIWindow *window;
     UINavigationController *navigationController;

@@ -1,16 +1,16 @@
 //
-//  ListNAppDelegate.m
-//  ListN
+//  SuperSetAppDelegate.m
+//  SuperSet
 //
-//  Created by Matt Powell on 18/08/10.
-//  Copyright Matt Powell 2010. All rights reserved.
+//  Created by Matt Powell on 22/08/10.
+//  Copyright __MyCompanyName__ 2010. All rights reserved.
 //
 
-#import "ListNAppDelegate.h"
+#import "SuperSetAppDelegate.h"
 #import "RootViewController.h"
 
 
-@implementation ListNAppDelegate
+@implementation SuperSetAppDelegate
 
 @synthesize window;
 @synthesize navigationController;
@@ -27,16 +27,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-  
-  // Override point for customization after application launch.
+    
+    // Override point for customization after application launch.
 
-  application.statusBarStyle = UIStatusBarStyleBlackOpaque;
-  
-  // Add the navigation controller's view to the window and display.
-  [window addSubview:navigationController.view];
-  [window makeKeyAndVisible];
+    // Add the navigation controller's view to the window and display.
+    [window addSubview:navigationController.view];
+    [window makeKeyAndVisible];
 
-  return YES;
+    return YES;
 }
 
 
@@ -121,7 +119,7 @@
     if (managedObjectModel_ != nil) {
         return managedObjectModel_;
     }
-    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"ListN" ofType:@"momd"];
+    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"SuperSet" ofType:@"momd"];
     NSURL *modelURL = [NSURL fileURLWithPath:modelPath];
     managedObjectModel_ = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
     return managedObjectModel_;
@@ -138,7 +136,7 @@
         return persistentStoreCoordinator_;
     }
     
-    NSURL *storeURL = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"ListN.sqlite"]];
+    NSURL *storeURL = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"SuperSet.sqlite"]];
     
     NSError *error = nil;
     persistentStoreCoordinator_ = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
