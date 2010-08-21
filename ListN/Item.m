@@ -23,6 +23,7 @@
     for (int i = 0; i < [tagValues count]; i++) {
       [self.tags_ addObject:[[tagValues objectAtIndex:i] tag]];
     }
+    [tagValues release];
   }
   return tags_;
 }
@@ -66,7 +67,9 @@
   NSArray *tagNames = [[NSArray alloc] initWithArray:[self.tags sortedArrayUsingDescriptors:sortDescriptors]];
   [sortDescriptors dealloc];
   [sortDescriptor dealloc];
-  return [tagNames componentsJoinedByString:@", "];
+  NSString *result = [[NSString alloc] initWithString:[tagNames componentsJoinedByString:@", "]];
+  [tagNames release];
+  return result;
 }
 
 - (void) dealloc {

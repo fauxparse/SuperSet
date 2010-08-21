@@ -23,6 +23,10 @@
 #pragma mark -
 #pragma mark View lifecycle
 
+- (void)viewDidAppear:(BOOL)animated {
+  [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad {
   self.navigationItem.title = @"Library";
   
