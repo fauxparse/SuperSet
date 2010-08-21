@@ -29,6 +29,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
     // Override point for customization after application launch.
+    application.statusBarStyle = UIStatusBarStyleBlackOpaque;
 
     // Add the navigation controller's view to the window and display.
     [window addSubview:navigationController.view];
