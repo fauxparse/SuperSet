@@ -4,6 +4,12 @@
 
 @synthesize tags_;
 
+@dynamic firstLetter;
+
+- (NSString *) firstLetter {
+  return [[NSString alloc] initWithFormat:@"%c", [self.title characterAtIndex:0]];
+}
+
 - (NSMutableSet *) tags {
   if (!tags_) {
     self.tags_ = [[NSMutableSet alloc] initWithCapacity:[self.itemTags count]];

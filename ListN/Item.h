@@ -10,4 +10,6 @@
 @property (nonatomic, retain) NSMutableSet *tags_;
 @property (nonatomic, retain) NSMutableSet *tags;
 
+@property (nonatomic, retain) NSString *firstLetter;
+
 @end
