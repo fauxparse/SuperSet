@@ -136,6 +136,25 @@
   return [theSection name];
 }
 
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString*)searchString {
+  [NSFetchedResultsController deleteCacheWithName:@"Library"];
+  NSPredicate *predicate = nil;
+  if (searchString && [searchString length]) {
+    predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchString];
+  } else {
+    predicate = [NSPredicate predicateWithValue:YES];
+  }
+  [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+  
+  NSError *error = nil;
+  if (![[self fetchedResultsController] performFetch:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }           
+  
+  return YES;
+}
+
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -206,7 +225,7 @@
   
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
-  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"firstLetter" cacheName:@"Root"];
+  NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"firstLetter" cacheName:@"Library"];
   aFetchedResultsController.delegate = self;
   self.fetchedResultsController = aFetchedResultsController;
   
