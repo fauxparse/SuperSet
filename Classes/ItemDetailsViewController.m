@@ -107,7 +107,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.section == ITEM_TAGS_SECTION) {
     int i = [tags count];
-    return i < 1 ? 44 : i * 32;
+    return i < 1 ? 44 : i * 20 + 24;
   } else {
     return 44;
   }
