@@ -5,6 +5,7 @@
 *.mobileprovision
 
 build/
+Static analysis/
 
 *.pbxuser
 *.perspective

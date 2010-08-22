@@ -209,6 +209,7 @@
 
 - (void)dealloc {
 //  [item release];
+  [footerView release];
   [tags dealloc];
   [itemTitle dealloc];
   [managedObjectContext_ release];

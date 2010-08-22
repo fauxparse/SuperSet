@@ -25,6 +25,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
   [super viewDidAppear:animated];
+  [tableView reloadData];
 }
 
 - (void)viewDidLoad {
@@ -51,7 +52,9 @@
   if (setList) {
     count = [self.setList countOf:item];
     cell.checked = count > 0;
-    cell.countLabel.text = count > 1 ? [NSString stringWithFormat:@"%d", count] : @"";
+    NSString *countLabel = count > 1 ? [NSString stringWithFormat:@"%d", count] : @"";
+    [countLabel autorelease];
+    cell.countLabel.text = countLabel;
   }
 }
 

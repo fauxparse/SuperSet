@@ -7,12 +7,16 @@
 @dynamic firstLetter;
 
 - (NSString *) firstLetter {
-  return [[NSString alloc] initWithFormat:@"%c", [self.title characterAtIndex:0]];
+  if (firstLetter_ == nil) {
+    firstLetter_ = [[NSString alloc] initWithFormat:@"%c", [self.title characterAtIndex:0]];
+  }
+  return firstLetter_;
 }
 
 - (NSMutableSet *) tags {
   if (!tags_) {
     self.tags_ = [[NSMutableSet alloc] initWithCapacity:[self.itemTags count]];
+    [self.tags_ autorelease];
 
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
@@ -23,7 +27,7 @@
     for (int i = 0; i < [tagValues count]; i++) {
       [self.tags_ addObject:[[tagValues objectAtIndex:i] tag]];
     }
-    [tagValues release];
+    [tagValues dealloc];
   }
   return tags_;
 }
@@ -41,6 +45,7 @@
   for (int i = 0; i < [tagValues count]; i++) {
     [self addTag:[tagValues objectAtIndex:i]];
   }
+  [tagValues release];
 }
 
 - (BOOL) hasTag:(Tag *)tag {
@@ -68,11 +73,13 @@
   [sortDescriptors dealloc];
   [sortDescriptor dealloc];
   NSString *result = [[NSString alloc] initWithString:[tagNames componentsJoinedByString:@", "]];
+  [result autorelease];
   [tagNames release];
   return result;
 }
 
 - (void) dealloc {
+  [firstLetter_ dealloc];
   [tags_ dealloc];
   [super dealloc];
 }

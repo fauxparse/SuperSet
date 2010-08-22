@@ -3,6 +3,7 @@
 
 @interface Item : _Item {
   NSMutableSet *tags_;
+  NSString *firstLetter_;
 }
 
 - (NSString *) tagDescription;
