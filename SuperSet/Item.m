@@ -27,7 +27,7 @@
     for (int i = 0; i < [tagValues count]; i++) {
       [self.tags_ addObject:[[tagValues objectAtIndex:i] tag]];
     }
-    [tagValues dealloc];
+    [tagValues release];
   }
   return tags_;
 }

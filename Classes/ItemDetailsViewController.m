@@ -142,7 +142,7 @@
     if ([tags count]) {
       NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"tag" ascending:YES];
       NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-      NSArray *tagNames = [[NSArray alloc] initWithArray:[self.tags sortedArrayUsingDescriptors:sortDescriptors]];
+      NSArray *tagNames = [[[NSArray alloc] initWithArray:[self.tags sortedArrayUsingDescriptors:sortDescriptors]] autorelease];
       [sortDescriptors dealloc];
       [sortDescriptor dealloc];
       
@@ -209,7 +209,6 @@
 
 - (void)dealloc {
 //  [item release];
-  [footerView release];
   [tags dealloc];
   [itemTitle dealloc];
   [managedObjectContext_ release];

@@ -53,7 +53,7 @@
     count = [self.setList countOf:item];
     cell.checked = count > 0;
     NSString *countLabel = count > 1 ? [NSString stringWithFormat:@"%d", count] : @"";
-    [countLabel autorelease];
+//    [countLabel autorelease];
     cell.countLabel.text = countLabel;
   }
 }
