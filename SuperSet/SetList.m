@@ -18,15 +18,19 @@
 -(NSMutableArray*)sortedItems {
   NSSortDescriptor *sortDescriptor;
   NSArray *sortDescriptors;
-  
-  if (!self.sortedItems_) {
-    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
-    sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+
+  if (self.sortedItems_ == nil) {
+    NSLog(@"reloading... %d", [self.setListItems count]);
+    sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES] autorelease];
+    sortDescriptors = [[[NSArray alloc] initWithObjects:sortDescriptor, nil] autorelease];
     self.sortedItems_ = [[NSMutableArray alloc] initWithArray:[self.setListItems sortedArrayUsingDescriptors:sortDescriptors]];
-    [sortDescriptors dealloc];
-    [sortDescriptor dealloc];
   }
   return self.sortedItems_;
+}
+
+-(void)reload {
+  self.sortedItems_ = nil;
+  [self.managedObjectContext refreshObject:self mergeChanges:YES];
 }
 
 -(void)moveItemFromRow:(NSUInteger)fromRow toRow:(NSUInteger)toRow {

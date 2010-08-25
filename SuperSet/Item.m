@@ -78,6 +78,15 @@
   return result;
 }
 
+- (void) destroy {
+  [self.managedObjectContext deleteObject:self];
+  NSError *error = nil;
+  if (![self.managedObjectContext save:&error]) {
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    abort();
+  }
+}
+
 - (void) dealloc {
   [firstLetter_ dealloc];
   [tags_ dealloc];

@@ -17,6 +17,7 @@
 @interface ItemDetailsViewController : UIViewController <UITextFieldDelegate> {
   IBOutlet UITableView *tableView;
   IBOutlet CellOwner *cellOwner;
+  IBOutlet CellOwner *buttonCellOwner;
   
   Item *item;
   NSMutableSet *tags;
@@ -29,6 +30,7 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet CellOwner *cellOwner;
+@property (nonatomic, retain) IBOutlet CellOwner *buttonCellOwner;
 @property (nonatomic, retain) Item *item;
 @property (nonatomic, retain) NSMutableSet *tags;
 @property (nonatomic, retain) NSMutableString *itemTitle;

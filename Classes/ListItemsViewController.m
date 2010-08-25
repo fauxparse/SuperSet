@@ -26,6 +26,11 @@
   self.navigationItem.title = self.setList ? self.setList.title : @"New Set List";
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+  [tableView reloadData];
+  [super viewWillAppear:animated];
+}
+
 - (IBAction) addItems {
   LibraryViewController *libraryController = [[LibraryViewController alloc] initWithNibName:@"LibraryViewController" bundle:nil];
   libraryController.delegate = self;
@@ -135,8 +140,8 @@
 }
 
 - (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList {
+  [self.setList reload];
   [self dismissModalViewControllerAnimated:YES];
-  [self.tableView reloadData];
 }
 
 #pragma mark -

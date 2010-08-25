@@ -2,8 +2,8 @@
 //  CellOwner.m
 //  SuperSet
 //
-//  Created by Matt Powell on 18/08/10.
-//  Copyright 2010 Matt Powell. All rights reserved.
+//  By HenrikB
+//  http://humblecoder.blogspot.com/2009/05/iphone-tutorial-creating-table-cells-in.html
 //
 
 #import "CellOwner.h"

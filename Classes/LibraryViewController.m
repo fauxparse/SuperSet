@@ -9,7 +9,6 @@
 #import "LibraryViewController.h"
 #import "ItemDetailsViewController.h"
 #import "Item.h"
-#import "TDBadgedCell.h"
 #import "CheckableTableCell.h"
 
 @implementation LibraryViewController

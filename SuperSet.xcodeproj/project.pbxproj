@@ -32,7 +32,6 @@
 		C91B31E81220921F0084FAFA /* ListDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91B31D61220921F0084FAFA /* ListDetailsViewController.xib */; };
 		C91B31E91220921F0084FAFA /* ListItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B31D81220921F0084FAFA /* ListItemsViewController.m */; };
 		C91B31EA1220921F0084FAFA /* ListItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C91B31D91220921F0084FAFA /* ListItemsViewController.xib */; };
-		C91B31EB1220921F0084FAFA /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B31DB1220921F0084FAFA /* TDBadgedCell.m */; };
 		C91B31EF1220927D0084FAFA /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = C91B31ED1220927D0084FAFA /* checked.png */; };
 		C91B31F01220927D0084FAFA /* unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = C91B31EE1220927D0084FAFA /* unchecked.png */; };
 		C91B31F2122092920084FAFA /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = C91B31F1122092920084FAFA /* settings.png */; };
@@ -46,6 +45,9 @@
 		C91B320F122092B00084FAFA /* SetList.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B3203122092B00084FAFA /* SetList.m */; };
 		C91B3210122092B00084FAFA /* SetListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B3205122092B00084FAFA /* SetListItem.m */; };
 		C91B3211122092B00084FAFA /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = C91B3207122092B00084FAFA /* Tag.m */; };
+		C9C033971220C47F00CD3E48 /* RedButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C033961220C47F00CD3E48 /* RedButtonCell.xib */; };
+		C9C0339A1220C4A400CD3E48 /* RedButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C033991220C4A400CD3E48 /* RedButtonCell.m */; };
+		C9C034231220CDF900CD3E48 /* big-red-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C034221220CDF900CD3E48 /* big-red-button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,8 +89,6 @@
 		C91B31D71220921F0084FAFA /* ListItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItemsViewController.h; sourceTree = "<group>"; };
 		C91B31D81220921F0084FAFA /* ListItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItemsViewController.m; sourceTree = "<group>"; };
 		C91B31D91220921F0084FAFA /* ListItemsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ListItemsViewController.xib; path = Classes/ListItemsViewController.xib; sourceTree = "<group>"; };
-		C91B31DA1220921F0084FAFA /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
-		C91B31DB1220921F0084FAFA /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		C91B31ED1220927D0084FAFA /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checked.png; path = Images/checked.png; sourceTree = "<group>"; };
 		C91B31EE1220927D0084FAFA /* unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = unchecked.png; path = Images/unchecked.png; sourceTree = "<group>"; };
 		C91B31F1122092920084FAFA /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = Images/settings.png; sourceTree = "<group>"; };
@@ -112,6 +112,10 @@
 		C91B3205122092B00084FAFA /* SetListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetListItem.m; path = SuperSet/SetListItem.m; sourceTree = "<group>"; };
 		C91B3206122092B00084FAFA /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = SuperSet/Tag.h; sourceTree = "<group>"; };
 		C91B3207122092B00084FAFA /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = SuperSet/Tag.m; sourceTree = "<group>"; };
+		C9C033961220C47F00CD3E48 /* RedButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RedButtonCell.xib; path = Classes/RedButtonCell.xib; sourceTree = "<group>"; };
+		C9C033981220C4A400CD3E48 /* RedButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedButtonCell.h; sourceTree = "<group>"; };
+		C9C033991220C4A400CD3E48 /* RedButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedButtonCell.m; sourceTree = "<group>"; };
+		C9C034221220CDF900CD3E48 /* big-red-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "big-red-button.png"; path = "Images/big-red-button.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,12 +152,12 @@
 				C91B31D51220921F0084FAFA /* ListDetailsViewController.m */,
 				C91B31D71220921F0084FAFA /* ListItemsViewController.h */,
 				C91B31D81220921F0084FAFA /* ListItemsViewController.m */,
-				C91B31DA1220921F0084FAFA /* TDBadgedCell.h */,
-				C91B31DB1220921F0084FAFA /* TDBadgedCell.m */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* SuperSetAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SuperSetAppDelegate.m */,
+				C9C033981220C4A400CD3E48 /* RedButtonCell.h */,
+				C9C033991220C4A400CD3E48 /* RedButtonCell.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -192,6 +196,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9C034221220CDF900CD3E48 /* big-red-button.png */,
 				C91B31F1122092920084FAFA /* settings.png */,
 				C91B31ED1220927D0084FAFA /* checked.png */,
 				C91B31EE1220927D0084FAFA /* unchecked.png */,
@@ -215,6 +220,7 @@
 		C91B31EC1220922A0084FAFA /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
+				C9C033961220C47F00CD3E48 /* RedButtonCell.xib */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				C91B31CD1220921F0084FAFA /* ItemDetailsViewController.xib */,
@@ -316,6 +322,8 @@
 				C91B31EF1220927D0084FAFA /* checked.png in Resources */,
 				C91B31F01220927D0084FAFA /* unchecked.png in Resources */,
 				C91B31F2122092920084FAFA /* settings.png in Resources */,
+				C9C033971220C47F00CD3E48 /* RedButtonCell.xib in Resources */,
+				C9C034231220CDF900CD3E48 /* big-red-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +346,6 @@
 				C91B31E51220921F0084FAFA /* LibraryViewController.m in Sources */,
 				C91B31E71220921F0084FAFA /* ListDetailsViewController.m in Sources */,
 				C91B31E91220921F0084FAFA /* ListItemsViewController.m in Sources */,
-				C91B31EB1220921F0084FAFA /* TDBadgedCell.m in Sources */,
 				C91B3208122092B00084FAFA /* _Item.m in Sources */,
 				C91B3209122092B00084FAFA /* _ItemTag.m in Sources */,
 				C91B320A122092B00084FAFA /* _SetList.m in Sources */,
@@ -349,6 +356,7 @@
 				C91B320F122092B00084FAFA /* SetList.m in Sources */,
 				C91B3210122092B00084FAFA /* SetListItem.m in Sources */,
 				C91B3211122092B00084FAFA /* Tag.m in Sources */,
+				C9C0339A1220C4A400CD3E48 /* RedButtonCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

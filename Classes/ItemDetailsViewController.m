@@ -9,11 +9,12 @@
 #import "ItemDetailsViewController.h"
 #import "ItemTagsViewController.h"
 #import "RootViewController.h"
+#import "RedButtonCell.h"
 
 @implementation ItemDetailsViewController
 
 @synthesize tableView;
-@synthesize cellOwner;
+@synthesize cellOwner, buttonCellOwner;
 @synthesize delegate;
 @synthesize item;
 @synthesize itemTitle;
@@ -22,6 +23,7 @@
 
 #define ITEM_TITLE_SECTION 0
 #define ITEM_TAGS_SECTION 1
+#define ITEM_DELETE_SECTION 2
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -69,10 +71,10 @@
   
   EditableTableCell *cell;
   cell = (EditableTableCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ITEM_TITLE_SECTION]];
-  item.title = cell.textField.text;
+  item.title = [[[NSString alloc] initWithString:cell.textField.text] autorelease];
 	
   NSError *error = nil;
-	if (![item.managedObjectContext save:&error]) {
+	if (![[item managedObjectContext] save:&error]) {
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
 	}
@@ -91,14 +93,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   // Return the number of sections.
-  return 2;
+  return item ? 3 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   switch (section) {
     case ITEM_TAGS_SECTION:
       return 1;
-    case ITEM_TITLE_SECTION:
     default:
       return 1;
   }
@@ -154,6 +155,17 @@
       cell.textLabel.numberOfLines = 1;
     }
     return cell;
+  } else if (indexPath.section == ITEM_DELETE_SECTION) {
+    static NSString *CellIdentifier = @"RedButtonCell";
+    RedButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+      [buttonCellOwner loadMyNibFile:CellIdentifier];
+      cell = (RedButtonCell *) buttonCellOwner.cell;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell.button addTarget:self action:@selector(confirmDelete:) forControlEvents:UIControlEventTouchDown];
+    
+    return cell;
   } else {
     static NSString *CellIdentifier = @"Cell";
     
@@ -163,6 +175,27 @@
     }
     
     return cell;
+  }
+}
+
+- (void) confirmDelete:(id)sender {
+  UIActionSheet *confirmation = [[UIActionSheet alloc]
+                                 initWithTitle:nil
+                                 delegate:self
+                                 cancelButtonTitle:@"Cancel"
+                                 destructiveButtonTitle:@"Delete Item"
+                                 otherButtonTitles:nil];
+  
+  confirmation.title = @"Delete this item from your library?";
+  confirmation.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+  [confirmation showInView:self.view];
+  [confirmation release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+  if (!buttonIndex && item) {
+    [item destroy];
+    [self.navigationController popViewControllerAnimated:YES];
   }
 }
 
@@ -212,6 +245,7 @@
   [tags dealloc];
   [itemTitle dealloc];
   [managedObjectContext_ release];
+  [buttonCellOwner release];
   [cellOwner release];
   [tableView release];
   [super dealloc];
