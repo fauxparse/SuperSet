@@ -7,7 +7,7 @@
 
 - (NSInteger) countOf:(Item *)item {
   NSInteger c = 0;
-  for (SetListItem *sli in self.setListItems) {
+  for (SetListItem *sli in [self sortedItems]) {
     if ([[sli item] objectID] == [item objectID]) {
       c++;
     }
@@ -20,17 +20,29 @@
   NSArray *sortDescriptors;
 
   if (self.sortedItems_ == nil) {
-    NSLog(@"reloading... %d", [self.setListItems count]);
-    sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES] autorelease];
-    sortDescriptors = [[[NSArray alloc] initWithObjects:sortDescriptor, nil] autorelease];
-    self.sortedItems_ = [[NSMutableArray alloc] initWithArray:[self.setListItems sortedArrayUsingDescriptors:sortDescriptors]];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"SetListItem" inManagedObjectContext:[self managedObjectContext]];
+    NSFetchRequest *request = [[[NSFetchRequest alloc] init] autorelease];
+    [request setEntity:entityDescription];
+    [entityDescription release];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(setList = %@)", self];
+    [request setPredicate:predicate];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"position" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [sortDescriptor release];
+    
+    NSError *error;
+    NSArray *array = [[self managedObjectContext] executeFetchRequest:request error:&error];
+    if (array) {
+      self.sortedItems_ = [[[NSMutableArray alloc] initWithArray:array] autorelease];
+    }
   }
   return self.sortedItems_;
 }
 
 -(void)reload {
   self.sortedItems_ = nil;
-  [self.managedObjectContext refreshObject:self mergeChanges:YES];
+  [self.managedObjectContext refreshObject:self mergeChanges:NO];
 }
 
 -(void)moveItemFromRow:(NSUInteger)fromRow toRow:(NSUInteger)toRow {

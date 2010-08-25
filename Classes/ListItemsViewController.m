@@ -27,6 +27,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+  [self.setList reload];
   [tableView reloadData];
   [super viewWillAppear:animated];
 }
@@ -140,7 +141,6 @@
 }
 
 - (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList {
-  [self.setList reload];
   [self dismissModalViewControllerAnimated:YES];
 }
 

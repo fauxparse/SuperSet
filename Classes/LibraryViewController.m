@@ -171,7 +171,7 @@
   if (setList) {
     newItem = (SetListItem *)[SetListItem insertInManagedObjectContext:self.managedObjectContext];
     newItem.item = item;
-    newItem.position = [NSNumber numberWithInteger:[setList.setListItems count]];
+    newItem.position = [NSNumber numberWithInteger:[[setList sortedItems] count]];
     [setList addSetListItem:newItem];
     [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
     NSError *error = nil;
