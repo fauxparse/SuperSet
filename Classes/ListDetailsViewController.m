@@ -37,6 +37,7 @@
   
   UIBarButtonItem *saveButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStyleDone target:self action:@selector(save)];
   self.navigationItem.rightBarButtonItem = saveButtonItem;
+  saveButtonItem.enabled = setList != nil;
   [saveButtonItem release];
 }
 
@@ -203,6 +204,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+  NSString *newText = [[textField text] stringByReplacingCharactersInRange:range withString:string];
+  self.navigationItem.rightBarButtonItem.enabled = [newText length] > 0;
+  return YES;
 }
 
 #pragma mark -

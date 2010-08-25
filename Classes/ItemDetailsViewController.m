@@ -47,6 +47,7 @@
   } else {
     self.tags = [[NSMutableSet alloc] initWithCapacity:3];
     self.itemTitle = [[NSMutableString alloc] initWithString:@""];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
   }
 }
 
@@ -223,6 +224,12 @@
 	[textField resignFirstResponder];
   [self.itemTitle setString:textField.text];
 	return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+  NSString *newText = [[textField text] stringByReplacingCharactersInRange:range withString:string];
+  self.navigationItem.rightBarButtonItem.enabled = [newText length] > 0;
+  return YES;
 }
 
 #pragma mark -
