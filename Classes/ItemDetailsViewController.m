@@ -196,7 +196,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
   if (!buttonIndex && item) {
     [item destroy];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate itemDetailsViewController:self didDeleteItem:item];
   }
 }
 

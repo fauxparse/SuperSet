@@ -12,7 +12,7 @@
 #import "ListDetailsViewController.h"
 #import "LibraryViewController.h"
 
-@interface ListItemsViewController : UIViewController <ListDetailsDelegate, LibraryViewDelegate> {
+@interface ListItemsViewController : UIViewController <ListDetailsDelegate, LibraryViewDelegate, ItemDetailsDelegate> {
   IBOutlet UITableView *tableView;
 
 @private

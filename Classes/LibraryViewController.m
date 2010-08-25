@@ -82,6 +82,13 @@
   [self.tableView reloadData];
 }
 
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didDeleteItem:(Item *)item {
+  if (self.setList) {
+    [self.setList reload];
+  }
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 

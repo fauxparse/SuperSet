@@ -44,4 +44,5 @@
 
 @protocol ItemDetailsDelegate <NSObject>
 - (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item wasNew:(BOOL)wasNew;
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didDeleteItem:(Item *)item;
 @end

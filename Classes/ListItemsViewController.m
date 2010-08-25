@@ -27,7 +27,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-  [self.setList reload];
   [tableView reloadData];
   [super viewWillAppear:animated];
 }
@@ -88,6 +87,7 @@
     
   cell.textLabel.text = [item title];
   cell.detailTextLabel.text = [item tagDescription];
+  cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     
   return cell;
 }
@@ -134,6 +134,7 @@
 }
 
 - (void)listDetailsViewController:(ListDetailsViewController *)listDetailsViewController didEditSetList:(SetList *)setList {
+  [self.setList reload];
   [self dismissModalViewControllerAnimated:YES];
   if (setList) {
     self.navigationItem.title = setList.title;
@@ -142,6 +143,29 @@
 
 - (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList {
   [self dismissModalViewControllerAnimated:YES];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return @"Remove";
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+  ItemDetailsViewController *detailsController = [[ItemDetailsViewController alloc] initWithNibName:@"ItemDetailsViewController" bundle:nil];
+  detailsController.delegate = self;
+  detailsController.managedObjectContext = self.managedObjectContext;
+  SetListItem *listItem = (SetListItem *)[self.setList.sortedItems objectAtIndex:indexPath.row];
+  detailsController.item = [listItem item];
+  [self.navigationController pushViewController:detailsController animated:YES];
+}
+
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didEditItem:(Item *)item wasNew:(BOOL)wasNew {
+  [self.setList reload];
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)itemDetailsViewController:(ItemDetailsViewController *)itemDetailsViewController didDeleteItem:(Item *)item {
+  [self.setList reload];
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark -
