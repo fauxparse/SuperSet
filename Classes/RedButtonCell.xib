@@ -49,8 +49,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIButton" id="565891443">
 								<reference key="NSNextResponder" ref="73043007"/>
-								<int key="NSvFlags">301</int>
-								<string key="NSFrame">{{0, -1}, {302, 45}}</string>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{-1, -1}, {302, 45}}</string>
 								<reference key="NSSuperview" ref="73043007"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

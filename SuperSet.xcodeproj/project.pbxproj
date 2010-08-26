@@ -48,6 +48,9 @@
 		C9C033971220C47F00CD3E48 /* RedButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9C033961220C47F00CD3E48 /* RedButtonCell.xib */; };
 		C9C0339A1220C4A400CD3E48 /* RedButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C9C033991220C4A400CD3E48 /* RedButtonCell.m */; };
 		C9C034231220CDF900CD3E48 /* big-red-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C9C034221220CDF900CD3E48 /* big-red-button.png */; };
+		C9D557C612271D0100687CD9 /* big-red-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D557C312271D0100687CD9 /* big-red-button@2x.png */; };
+		C9D557C712271D0100687CD9 /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D557C412271D0100687CD9 /* checked@2x.png */; };
+		C9D557C812271D0100687CD9 /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9D557C512271D0100687CD9 /* unchecked@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -116,6 +119,9 @@
 		C9C033981220C4A400CD3E48 /* RedButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedButtonCell.h; sourceTree = "<group>"; };
 		C9C033991220C4A400CD3E48 /* RedButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedButtonCell.m; sourceTree = "<group>"; };
 		C9C034221220CDF900CD3E48 /* big-red-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "big-red-button.png"; path = "Images/big-red-button.png"; sourceTree = "<group>"; };
+		C9D557C312271D0100687CD9 /* big-red-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "big-red-button@2x.png"; path = "Images/big-red-button@2x.png"; sourceTree = "<group>"; };
+		C9D557C412271D0100687CD9 /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checked@2x.png"; path = "Images/checked@2x.png"; sourceTree = "<group>"; };
+		C9D557C512271D0100687CD9 /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unchecked@2x.png"; path = "Images/unchecked@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +202,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9D557C312271D0100687CD9 /* big-red-button@2x.png */,
+				C9D557C412271D0100687CD9 /* checked@2x.png */,
+				C9D557C512271D0100687CD9 /* unchecked@2x.png */,
 				C9C034221220CDF900CD3E48 /* big-red-button.png */,
 				C91B31F1122092920084FAFA /* settings.png */,
 				C91B31ED1220927D0084FAFA /* checked.png */,
@@ -324,6 +333,9 @@
 				C91B31F2122092920084FAFA /* settings.png in Resources */,
 				C9C033971220C47F00CD3E48 /* RedButtonCell.xib in Resources */,
 				C9C034231220CDF900CD3E48 /* big-red-button.png in Resources */,
+				C9D557C612271D0100687CD9 /* big-red-button@2x.png in Resources */,
+				C9D557C712271D0100687CD9 /* checked@2x.png in Resources */,
+				C9D557C812271D0100687CD9 /* unchecked@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
