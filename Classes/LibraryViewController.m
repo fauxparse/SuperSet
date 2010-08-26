@@ -153,7 +153,7 @@
   [NSFetchedResultsController deleteCacheWithName:@"Library"];
   NSPredicate *predicate = nil;
   if (searchString && [searchString length]) {
-    predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@", searchString];
+    predicate = [NSPredicate predicateWithFormat:@"(title contains[cd] %@) OR (itemTags.tag.tag contains[cd] %@)", searchString, searchString];
   } else {
     predicate = [NSPredicate predicateWithValue:YES];
   }
@@ -235,6 +235,7 @@
   NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
   
   [fetchRequest setSortDescriptors:sortDescriptors];
+  [fetchRequest setRelationshipKeyPathsForPrefetching:[NSArray arrayWithObject:@"itemTags.tag"]];
   
   // Edit the section name key path and cache name if appropriate.
   // nil for section name key path means "no sections".
