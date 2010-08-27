@@ -234,7 +234,7 @@
   [cellOwner release];
   [datePicker release];
   [tableView release];
-  [managedObjectContext_ release];
+//  [managedObjectContext_ release];
   [super dealloc];
 }
 

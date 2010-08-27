@@ -84,6 +84,19 @@
   [detailsController release];
 }
 
+- (IBAction) showLibrary {
+  LibraryViewController *libraryController = [[LibraryViewController alloc] initWithNibName:@"LibraryViewController" bundle:nil];
+  libraryController.delegate = self;
+  libraryController.managedObjectContext = self.managedObjectContext;
+  libraryController.setList = nil;
+  
+  UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:libraryController];
+  navigationController.navigationBar.barStyle = UIBarStyleBlack;
+  [self presentModalViewController:navigationController animated:YES];
+  [navigationController release];
+  [libraryController release];
+}
+
 - (void)listDetailsViewController:(ListDetailsViewController *)listDetailsViewController didEditSetList:(SetList *)setList {
   [self dismissModalViewControllerAnimated:YES];
   [self.tableView reloadData];
@@ -274,6 +287,11 @@
   [self.tableView reloadData];
 }
 */
+
+- (void)libraryViewController:(LibraryViewController *)libraryViewController addedItems:(SetList *)setList {
+  [self.tableView reloadData];
+  [self dismissModalViewControllerAnimated:YES];
+}
 
 #pragma mark -
 #pragma mark Memory management

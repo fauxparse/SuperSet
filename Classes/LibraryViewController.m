@@ -51,7 +51,7 @@
   if (setList) {
     count = [self.setList countOf:item];
     cell.checked = count > 0;
-    NSString *countLabel = count > 1 ? [NSString stringWithFormat:@"%d", count] : @"";
+    NSString *countLabel = count > 1 ? [NSString stringWithFormat:@"×%d", count] : @"";
 //    [countLabel autorelease];
     cell.countLabel.text = countLabel;
   }
@@ -103,17 +103,35 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  static NSString *CellIdentifier = @"CheckableTableCell";
-  
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-  if (cell == nil) {
-    [cellOwner loadMyNibFile:CellIdentifier];
-    cell = (EditableTableCell *) cellOwner.cell;
+  if (setList) {
+    static NSString *CellIdentifier = @"CheckableTableCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+      [cellOwner loadMyNibFile:CellIdentifier];
+      cell = (EditableTableCell *) cellOwner.cell;
+    }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+  } else {
+    static NSString *CellIdentifier = @"LibraryCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    Item *item = (Item *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    cell.textLabel.text = [item valueForKey:@"title"];
+    cell.detailTextLabel.text = [item tagDescription];
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
   }
-  
-  [self configureCell:cell atIndexPath:indexPath];
-  
-  return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
